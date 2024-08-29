@@ -14,6 +14,13 @@ options={
     headerShown:false
   }
 }/>
+<Stack.Screen
+name='sign-up'
+options={
+  {
+    headerShown:false
+  }
+}/>
   </Stack>
   <StatusBar backGroundColor='#161622'  style='light'/>
   </> )

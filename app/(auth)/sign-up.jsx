@@ -1,10 +1,11 @@
-import { View, Text,ScrollView, Image } from 'react-native'
+import { View, Text,ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images} from '../../constants'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
-import {Link, link} from 'expo-router'
+import {Link, link, router} from 'expo-router'
+import {createUser} from '../../lib/appwrite'
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -15,7 +16,26 @@ const SignUp = () => {
 
 const [isSubmiting, setIsSubmiting] = useState(false)
 
-const submit = () => {}
+const submit = async () => {
+  if (!form.userName || !form.email || !form.password) {
+    Alert.alert('All fields are required')
+    return
+  }
+setIsSubmiting(true);
+try{
+  const result = await createUser(form.email, form.password, form.userName)
+// Set to global state
+router.replace('/home')
+}catch(error){
+  Alert.alert('Error', error.message)}
+  finally{
+    setIsSubmiting(false)
+  }
+
+  createUser()
+
+
+}
   return (
     <SafeAreaView className="bg-primary h-full ">
       <ScrollView className="">
@@ -57,7 +77,7 @@ const submit = () => {}
        />
 
        <CustomButton 
-       title="sign In"
+       title="sign Up"
        handlePress={submit}
        containerStyles="mt-7"
        textStyles={"text-center"}
