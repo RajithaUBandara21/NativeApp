@@ -23,6 +23,7 @@ const submit = async () => {
   }
 setIsSubmiting(true);
 try{
+  
   const result = await createUser(form.email, form.password, form.userName)
 // Set to global state
 router.replace('/home')
@@ -32,7 +33,7 @@ router.replace('/home')
     setIsSubmiting(false)
   }
 
-  createUser()
+  
 
 
 }
@@ -87,7 +88,7 @@ router.replace('/home')
 
 <View className='justify-center pt-5 flex-row gap-2'> 
           <Text className="text-lg text-gray-100 font-pregular">Have an account already?</Text>
-          <Link href="sign-in" className='text-lg font-psemibold text-secondary'>Sing in</Link>
+          <Link href="sign-in" className='text-lg font-psemibold text-secondary'>Sing </Link>
         </View>
         </View>
 
