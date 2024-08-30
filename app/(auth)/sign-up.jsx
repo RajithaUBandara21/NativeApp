@@ -14,28 +14,26 @@ const SignUp = () => {
   password: ''
 })
 
-const [isSubmiting, setIsSubmiting] = useState(false)
 
+const [isSubmiting, setIsSubmiting] = useState(false)
 const submit = async () => {
   if (!form.userName || !form.email || !form.password) {
-    Alert.alert('All fields are required')
-    return
+    Alert.alert("All fields are required");
+    return;
   }
-setIsSubmiting(true);
-try{
-  
-  const result = await createUser(form.email, form.password, form.userName)
-// Set to global state
-router.replace('/home')
-}catch(error){
-  Alert.alert('Error', error.message)}
-  finally{
-    setIsSubmiting(false)
+  setIsSubmiting(true);
+  try {
+
+    const result = await createUser(form.email, form.password, form.userName);
+    setIsLoggedIn(true);
+    setUser(result);
+    // Set to global state
+    router.replace("/home");
+  } catch (error) {
+    Alert.alert("Error", error.message);
+  } finally {
+    setIsSubmiting(false);
   }
-
-  
-
-
 }
   return (
     <SafeAreaView className="bg-primary h-full ">

@@ -1,12 +1,16 @@
-import { View, Text,ScrollView, Image } from 'react-native'
+import { View, Text,ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images} from '../../constants'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
-import {Link, link} from 'expo-router'
+import {Link, link, router} from 'expo-router'
+import { getCurrentUser, signIn } from '../../lib/appwrite'
+import { Account } from 'react-native-appwrite'
 
 const SignIn = () => {
+
+ 
   const [form, setForm] = useState({
   email: '',
   password: ''
@@ -14,7 +18,38 @@ const SignIn = () => {
 
 const [isSubmiting, setIsSubmiting] = useState(false)
 
-const submit = () => {}
+
+
+
+
+
+const submit = async () => {
+ 
+  if ( !form.email || !form.password) {
+    Alert.alert("All fields are required");
+
+  }
+  setIsSubmiting(true);
+  try {
+  
+    await signIn(form.email, form.password);
+    const result = await getCurrentUser();
+    setIsLoggedIn(true);
+    setUser(result);
+    Alert.alert("Success", "You have successfully logged in");
+    // Set to global state
+    router.replace("/home");
+  } catch (error) {
+    Alert.alert("Error", error.message);
+  } finally {
+    setIsSubmiting(false);
+  }
+}
+
+
+
+
+
   return (
     <SafeAreaView className="bg-primary h-full ">
       <ScrollView className="">
