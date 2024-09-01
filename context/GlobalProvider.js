@@ -13,7 +13,7 @@ const [isLoading,setIsLoading] = useState(true);
 
 
 useEffect(() => {
-getCurrentUser().then((res)=>{
+  getCurrentUser().then((res)=>{
     if(res){
         setUser(res);
         setIsLoggedIn(true);

@@ -9,7 +9,7 @@ import { getCurrentUser, signIn } from '../../lib/appwrite'
 import { Account } from 'react-native-appwrite'
 import { useGlobalContext } from "../../context/GlobalProvider";
 const SignIn = () => {
-  const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLoggedIn } = useGlobalContext();
  
   const [form, setForm] = useState({
   email: '',
@@ -34,7 +34,7 @@ const submit = async () => {
   
     await signIn(form.email, form.password);
     const result = await getCurrentUser();
-    setIsLogged(true);
+    setIsLoggedIn(true);
     setUser(result);
     console.log(result);
     Alert.alert("Success", "You have successfully logged in");
