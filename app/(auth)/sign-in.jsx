@@ -36,7 +36,7 @@ const submit = async () => {
     const result = await getCurrentUser();
     setIsLoggedIn(true);
     setUser(result);
-    console.log(result);
+   
     Alert.alert("Success", "You have successfully logged in");
     // Set to global state
     router.replace("/home");
